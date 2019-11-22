@@ -1,13 +1,18 @@
-const connection = require("../config/connection.js");
+// Import MySQL Connection ===============
+const connection = require("./connection.js");
+// =======================================
 
+// Helper to generate MySQL syntax =======
 function printQMarks(num) {
-  const arr = [];
+  let arr = [];
   for (let i = 0; i < num; i++) {
     arr.push('?');
   }
   return arr.toString();
 }
+// =======================================
 
+// Helper to generate MySQL syntax =======
 function objToSql(ob) {
   let arr = [];
 
@@ -23,24 +28,26 @@ function objToSql(ob) {
   }
   return arr.toString();
 }
+// =======================================
 
-const orm = {
-  selectAll: function (table, cb) {
-    var queryString = 'select * from ' + table + ';';
+// ORM ===================================
+let orm = {
+  selectAll: function (tableInput, cb) {
+    var queryString = 'SELECT * FROM ' + tableInput + ';';
+
     connection.query(queryString, function (err, result) {
       if (err) throw err;
       cb(result);
     });
   },
   insertOne: function (table, cols, vals, cb) {
-    var queryString = 'insert into ' + table;
+    var queryString = 'INSERT INTO ' + table;
     queryString += ' (';
     queryString += cols.toString();
     queryString += ') ';
-    queryString += 'values (';
+    queryString += 'VALUES (';
     queryString += printQMarks(vals.length);
     queryString += ') ';
-    console.log(queryString);
 
     connection.query(queryString, vals, function (err, result) {
       if (err) throw err;
@@ -48,26 +55,20 @@ const orm = {
     });
   },
   updateOne: function (table, objColVals, condition, cb) {
-    var queryString = 'update ' + table;
-    queryString += ' set ';
+    var queryString = 'UPDATE ' + table;
+    queryString += ' SET ';
     queryString += objToSql(objColVals);
-    queryString += ' where ';
+    queryString += ' WHERE ';
     queryString += condition;
-    console.log(queryString);
+
     connection.query(queryString, function (err, result) {
       if (err) throw err;
       cb(result);
     });
-  },
-  delete: function(table, condition, cb) {
-    var queryString = 'delete from ' + table;
-    queryString += ' where ';
-    queryString += condition;
-    connection.query(queryString, function(err, result) {
-      if (err) throw err;
-      cb(result);
-    })
   }
 };
+// =======================================
 
+// Export ORM ============================
 module.exports = orm;
+// =======================================
