@@ -1,11 +1,11 @@
 // Import MySQL Connection ===============
-const connection = require("./connection.js");
+const connection = require("../config/connection.js");
 // =======================================
 
 // Helper to generate MySQL syntax =======
 function printQMarks(num) {
-  let arr = [];
-  for (let i = 0; i < num; i++) {
+  var arr = [];
+  for (var i = 0; i < num; i++) {
     arr.push('?');
   }
   return arr.toString();
@@ -14,10 +14,10 @@ function printQMarks(num) {
 
 // Helper to generate MySQL syntax =======
 function objToSql(ob) {
-  let arr = [];
+  var arr = [];
 
-  for (let key in ob) {
-    let value = ob[key];
+  for (var key in ob) {
+    var value = ob[key];
     if (Object.hasOwnProperty.call(ob, key)) {
 
       if (typeof value === 'string' && value.indexOf(' ') >= 0) {
@@ -31,7 +31,7 @@ function objToSql(ob) {
 // =======================================
 
 // ORM ===================================
-let orm = {
+var orm = {
   selectAll: function (tableInput, cb) {
     var queryString = 'SELECT * FROM ' + tableInput + ';';
 
@@ -49,22 +49,32 @@ let orm = {
     queryString += printQMarks(vals.length);
     queryString += ') ';
 
-    connection.query(queryString, vals, function (err, result) {
+    connection.query(queryString, vals, function(err, result) {
       if (err) throw err;
       cb(result);
     });
   },
-  updateOne: function (table, objColVals, condition, cb) {
+  updateOne: function(table, objColVals, condition, cb) {
     var queryString = 'UPDATE ' + table;
     queryString += ' SET ';
     queryString += objToSql(objColVals);
     queryString += ' WHERE ';
     queryString += condition;
 
-    connection.query(queryString, function (err, result) {
+    connection.query(queryString, function(err, result) {
       if (err) throw err;
       cb(result);
     });
+  },
+  deleteOne: function(table, condition, cb) {
+    const queryString = 'DELETE FROM ' + table;
+    queryString += ' WHERE ';
+    queryString += condition;
+
+    connection.query(queryString, function(err, result) {
+      if (err) throw err;
+      cb(result);
+    })
   }
 };
 // =======================================
