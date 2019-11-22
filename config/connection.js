@@ -1,5 +1,8 @@
+// Dependencies ==========================
 const mysql = require("mysql");
+// =======================================
 
+// MySQL connection ======================
 const connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
@@ -7,13 +10,18 @@ const connection = mysql.createConnection({
   password: "root",
   database: "burgers_db"
 });
+// =======================================
 
+// Connection to MySQL ===================
 connection.connect(function(err) {
   if (err) {
-    console.error("error connecting: " + err.stack);
+    console.error("Error connecting: " + err.stack);
     return;
   }
-  console.log("connected as id " + connection.threadId);
+  console.log("Connected as id: " + connection.threadId);
 });
+// =======================================
 
+// Export for ORM ========================
 module.exports = connection;
+// =======================================
