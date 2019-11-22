@@ -1,32 +1,72 @@
-// Import MySQL connection.
 const connection = require("../config/connection.js");
 
+function printQMarks(num) {
+  const arr = [];
+  for (let i = 0; i < num; i++) {
+    arr.push('?');
+  }
+  return arr.toString();
+}
+
+function objToSql(ob) {
+  let arr = [];
+
+  for (let key in ob) {
+    let value = ob[key];
+    if (Object.hasOwnProperty.call(ob, key)) {
+
+      if (typeof value === 'string' && value.indexOf(' ') >= 0) {
+        value = "'" + value + "'";
+      }
+      arr.push(key + '=' + value);
+    }
+  }
+  return arr.toString();
+}
+
 const orm = {
-  selectAll: function (cb) {
-    const queryString = 'select * from burgers'
+  selectAll: function (table, cb) {
+    var queryString = 'select * from ' + table + ';';
     connection.query(queryString, function (err, result) {
-      if (err) {
-        throw err;
-      }
+      if (err) throw err;
       cb(result);
     });
   },
-  insertOne: function (burgerName, cb) {
-    connection.query('insert into burgers (burger_name) values ?', [burgerName], function (err, result) {
-      if (err) {
-        throw err;
-      }
+  insertOne: function (table, cols, vals, cb) {
+    var queryString = 'insert into ' + table;
+    queryString += ' (';
+    queryString += cols.toString();
+    queryString += ') ';
+    queryString += 'values (';
+    queryString += printQMarks(vals.length);
+    queryString += ') ';
+    console.log(queryString);
+
+    connection.query(queryString, vals, function (err, result) {
+      if (err) throw err;
       cb(result);
     });
   },
-  updateOne: function (id, cb) {
-    const queryString = 'update burgers set devoured = 1 where id = ?';
-    connection.query(queryString, [id], function (err, result) {
-      if (err) {
-        throw err;
-      }
+  updateOne: function (table, objColVals, condition, cb) {
+    var queryString = 'update ' + table;
+    queryString += ' set ';
+    queryString += objToSql(objColVals);
+    queryString += ' where ';
+    queryString += condition;
+    console.log(queryString);
+    connection.query(queryString, function (err, result) {
+      if (err) throw err;
       cb(result);
     });
+  },
+  delete: function(table, condition, cb) {
+    var queryString = 'delete from ' + table;
+    queryString += ' where ';
+    queryString += condition;
+    connection.query(queryString, function(err, result) {
+      if (err) throw err;
+      cb(result);
+    })
   }
 };
 
