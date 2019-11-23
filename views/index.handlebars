@@ -1,35 +1,49 @@
-<div class="jumbotron">
-    <div class="center col">
-        <img src="public/assets/img/burgerFull.png" alt="Burger pic">
-        <h1>Burger App</h1>
-        <br>
-        <h3>Add a Burger</h3>
-        <form action="/" method="POST" class="create-update-form">
-            <div class="form-group">
-                <input type="text" name="burger_name" id="ca">
-            </div>
-            <button class="btn-primary">Make Burger</button>
-        </form>
+<div class="container text-center">
+    <div class="row text-align-center">
+        <div class="col-12">
+            <h1>Burger App</h1><br>
+            <img src="assets/img/burgerFullsmall.png" alt="Burger pic">
+            <h3>Add a Burger</h3>
+            <form action="/" method="POST" class="create-update-form">
+                <div class="form-group">
+                    <input type="text" name="burger_name" id="ca">
+                </div>
+                <button class="btn-primary">Make Burger</button>
+            </form>
+        </div>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-6">
+    <div class="col-6" id="burgers">
         <h2>Burgers</h2>
-    <ul>
+        <img src="assets/img/burgerTop.png" alt="Burger Top" id="burgertop">
         {{#each burgers}}
         {{#unless this.devoured}}
-        <li>
-            {{this.id}}
+
+        <div class="burgerpatty">
             {{this.burger_name}}
-            <form action="/{{this.id}}?_method=PUT" method="POST">
+        </div>
+        <form action="/{{this.id}}?_method=PUT" method="POST">
             <input type="hidden" name="devoured" value="true">
-            <button type="submit" class="btn-primary">Devour It</button>
-            </form>
-        </li>
+            <button type="submit" class="eatButton" id="devour">Devour It</button>
+        </form>
         {{/unless}}
         {{/each}}
-    </ul>
+        <img src="assets/img/burgerBottom.png" alt="Burger Top" id="burgerbottom">
+    </div>
 
+    <div class="col-6" id="burgers">
+        <h2>Eaten</h2>
+        <img src="assets/img/burgerTop.png" alt="Burger Top" id="burgertop">
+        {{#each burgers}}
+        {{#if devoured}}
+        <div class="burgerpatty">
+            {{this.burger_name}}
+        </div>
+        <button data-id="{{this.id}}" type="submit" class="makeButton" id="devour">Make It</button>
+        {{/if}}
+        {{/each}}
+        <img src="assets/img/burgerBottom.png" alt="Burger Top" id="burgerbottom">
     </div>
 </div>

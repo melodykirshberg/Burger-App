@@ -17,8 +17,12 @@ function objToSql(ob) {
   var arr = [];
 
   for (var key in ob) {
+    const value = ob[key];
     if (Object.hasOwnProperty.call(ob, key)) {
-      arr.push(key + '=' + ob[key]);
+      if (typeof value === 'string' && value.indexOf(' ') >= 0) {
+        value = "'" + value + "'";
+      }
+      arr.push(key + '=' + value);
     }
   }
   return arr.toString();
@@ -43,29 +47,29 @@ const orm = {
     queryString += printQMarks(vals.length);
     queryString += ') ';
 
-    connection.query(queryString, vals, function(err, result) {
+    connection.query(queryString, vals, function (err, result) {
       if (err) throw err;
       cb(result);
     });
   },
-  updateOne: function(table, objColVals, condition, cb) {
+  updateOne: function (table, objColVals, condition, cb) {
     const queryString = 'UPDATE ' + table;
     queryString += ' SET ';
     queryString += objToSql(objColVals);
     queryString += ' WHERE ';
     queryString += condition;
 
-    connection.query(queryString, function(err, result) {
+    connection.query(queryString, function (err, result) {
       if (err) throw err;
       cb(result);
     });
   },
-  deleteOne: function(table, condition, cb) {
+  deleteOne: function (table, condition, cb) {
     const queryString = 'DELETE FROM ' + table;
     queryString += ' WHERE ';
     queryString += condition;
 
-    connection.query(queryString, function(err, result) {
+    connection.query(queryString, function (err, result) {
       if (err) throw err;
       cb(result);
     })

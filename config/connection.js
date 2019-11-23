@@ -13,7 +13,7 @@ const connection = mysql.createConnection({
 // =======================================
 
 // Connection to MySQL ===================
-connection.connect(function(err) {
+connection.connect(function (err) {
   if (err) {
     console.error("Error connecting: " + err.stack);
     return;
