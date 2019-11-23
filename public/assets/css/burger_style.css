@@ -1,14 +1,14 @@
-.jumbotron {
-  text-align: center;
-  padding: inherit;
-}
-
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Racing Sans One', cursive;
 }
 
 body {
   background: linear-gradient(360deg, #fceabb, #f8b500);
+}
+
+ul {
+  text-align: -webkit-center;
+  
 }
 
 #burgers {
@@ -27,8 +27,27 @@ body {
   border-radius: 24px;
 }
 
+#topS {
+  text-align: center;
+}
+
+ 
 .burgerpatty {
   font-family: 'Gloria Hallelujah', cursive;
   color: red;
   font-weight: bold;
+}
+
+.form-class {
+  text-align: -webkit-center;
+  width: auto;
+}
+
+.delete-button {
+  height: 80px;
+  width: -webkit-fill-available;
+  background-color: #e6af5d;
+  border: black solid 4px;
+  border-radius: 24px;
+  margin-top: 20px;
 }

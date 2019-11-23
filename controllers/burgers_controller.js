@@ -24,7 +24,7 @@ router.post("/api/burgers", function (req, res) {
 router.put("/api/burgers", function (req, res) {
     burger.updateOne({
         devoured: true
-    }, req.body, function (err, result) {
+    }, req.body.id, function (err, result) {
         if (err) throw err;
         res.json(result);
     });
