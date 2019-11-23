@@ -8,14 +8,18 @@
 
     <link rel="stylesheet" href="/assets/css/style.css" type="text/css" />
     <title>Burger App</title>
+
+    <style>
+    
+    </style>
 </head>
 
 <body>
-    <div class="container">
+    <div class="container-fluid">
 
-        <div class="jumbotron">
+        <div class="jumbotron vertical-center">
             <h1>Burger App</h1>
-            <img src='/public/assets/img/burgerFull.png'>
+            <img src='../public/assets/img/burgerFull.png' style="width: 200px">
             <form class="create-form">
                 <input type="text" id="newburger" name="burger" placeholder="Enter a burger!">
                 <button type="submit">Add Burger</button>
@@ -24,13 +28,12 @@
         <div class="row">
             <div class="col-lg-6">
                 <ul>
-                    <p><span class="label">ID:</span> {{this.id}}</p>
-                    <p><span class="label">Burger:</span> {{this.burger_name}}</p>
-                    <button class="eatburger" data-id="{{this.id}}" data-newDevoured="{{devour}}">Eat</button>
+                    <p><span class="label">ID:</span> {{id}}</p>
+                    <p><span class="label">Burger:</span> {{burger_name}}</p>
+                    <button class="eatburger" data-id="{{id}}" data-newDevoured="{{devour}}">Eat</button>
                 </ul>
             </div>
             <div class="col-lg-6">
-
             </div>
         </div>
     </div>

@@ -1,16 +1,13 @@
 // Dependencies ==========================
 const express = require("express");
 const router = express.Router();
-// =======================================
-
-// Import burger.js ======================
 const burger = require("../models/burger.js");
 // =======================================
 
 // Routes ================================
 router.get("/", function (req, res) {
     burger.selectAll(function (data) {
-        var hbsObject = {
+        const hbsObject = {
             burgers: data
         };
         res.render('index', hbsObject);
@@ -18,33 +15,29 @@ router.get("/", function (req, res) {
 });
 
 router.post("/api/burgers", function (req, res) {
-    burger.insertOne(['burger_name', 'devoured'], [req.body.burger_name, req.body.devoured], function (result) {
-        res.json({ id: result.insertId });
+    burger.insertOne(['burger_name', 'devoured'], function (err, result) {
+        if (err) throw err;
+        res.json(result);
     });
+    res.redirect('/');
 });
 
 router.put("/api/burgers/:id", function (req, res) {
     const condition = 'id = ' + req.params.id;
-
-    burger.updateOne({ devoured: req.body.devoured }, condition, function (result) {
-        if (result.changedRows === 0){
-            return res.status(404).end();
-        } else {
-            res.status(200).end();
-        }
+    burger.updateOne({ devoured: req.body.devoured}, condition, function (err, result) {
+       if (err) throw err;
+       res.json(result);
     });
+    res.redirect('/');
 });
 
 router.delete("/api/burgers/:id", function(req, res) {
     const condition = 'id = ' + req.params.id;
-
-    burger.deleteOne(condition, function(result) {
-        if (result.changedRows === 0) {
-            return res.status(404).end();
-        } else {
-            res.status(200).end();
-        }
-    })
+    burger.deleteOne(condition, function(err, result) {
+        if (err) throw err;
+        res.json(result);
+    });
+    res.redirect('/');
 })
 // =======================================
 

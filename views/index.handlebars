@@ -1,33 +1,35 @@
 <div class="jumbotron">
-    <div class="row">
+    <div class="center col">
+        <img src="public/assets/img/burgerFull.png" alt="Burger pic">
         <h1>Burger App</h1>
-    </div>
-    <div class="row">
-        <img class='logo' src='public/assets/img/burgerFull.png'>
-    </div>
-    <div class="row">
-        <form action="/burgers" method="POST">
-            <input type="text" id="name" name="burger_name" placeholder="Enter a burger!">
-            <button type="submit" class="addBurgerButton">Add Burger</button>
+        <br>
+        <h3>Add a Burger</h3>
+        <form action="/" method="POST" class="create-update-form">
+            <div class="form-group">
+                <input type="text" name="burger_name" id="ca">
+            </div>
+            <button class="btn-primary">Make Burger</button>
         </form>
     </div>
 </div>
 
-
-<div class="main-container">
-    <div class="col s6">
+<div class="row">
+    <div class="col-6">
+        <h2>Burgers</h2>
+    <ul>
         {{#each burgers}}
         {{#unless this.devoured}}
-    </div>
-    <form action="/burgers/{{this.id}}?_method=PUT" method="post">
-        <button type="submit" class="burgerAvailable"> {{this.burger_name}}</button></form>
-    <div class="col s6">
-        {{#each burgers}}
-        {{#if this.devoured}}
-        <div class="burgerEaten">
+        <li>
+            {{this.id}}
             {{this.burger_name}}
-        </div>
-        {{/if}}
+            <form action="/{{this.id}}?_method=PUT" method="POST">
+            <input type="hidden" name="devoured" value="true">
+            <button type="submit" class="btn-primary">Devour It</button>
+            </form>
+        </li>
+        {{/unless}}
         {{/each}}
+    </ul>
+
     </div>
 </div>

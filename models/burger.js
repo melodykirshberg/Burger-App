@@ -3,7 +3,7 @@ const orm = require('../config/orm.js');
 // =======================================
 
 // Create Burger Object ==================
-var burger = {
+const burger = {
     selectAll: function (cb) {
         orm.selectAll('burgers', function (res) {
             cb(res);
