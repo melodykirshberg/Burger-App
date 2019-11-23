@@ -1,29 +1,21 @@
 // Import ORM
-const orm = require('../config/orm.js');
+const orm = require('../config/orm');
 // =======================================
 
 // Create Burger Object ==================
 const burger = {
     selectAll: function (cb) {
-        orm.selectAll('burgers', function (res) {
-            cb(res);
-        });
+        orm.selectAll('burgers', cb);
     },
-    insertOne: function (cols, vals, cb) {
-        orm.insertOne('burgers', cols, vals, function (res) {
-            cb(res);
-        });
+    insertOne: function (set, cb) {
+        orm.insertOne('burgers', set, cb)
     },
-    updateOne: function (objColVals, condition, cb) {
-        orm.updateOne('burgers', objColVals, condition, function (res) {
-            cb(res);
-        });
+    updateOne: function (set, id, cb) {
+        orm.updateOne('burgers', set, id, cb);
+    },
+    deleteOne: function (id, cb) {
+        orm.deleteOne('burgers', id, cb);
     }
-    // deleteOne: function(condition, cb) {
-    //     orm.deleteOne('burgers', condition, function(res) {
-    //         cb(res);
-    //     });
-    // }
 };
 
 // Exports to the burgerController =======

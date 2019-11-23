@@ -6,7 +6,7 @@ const burger = require("../models/burger.js");
 
 // Routes ================================
 router.get("/", function (req, res) {
-    burger.selectAll(function (data) {
+    burger.selectAll(function (err, data) {
         const hbsObject = {
             burgers: data
         };
@@ -15,32 +15,28 @@ router.get("/", function (req, res) {
 });
 
 router.post("/api/burgers", function (req, res) {
-    burger.insertOne(
-        ['burger_name'],
-        ['req.body.burger_name'], function (err, result) {
+    burger.insertOne(req.body, function (err, result) {
             if (err) throw err;
-            res.json({ id: result.insertId });
+            res.json(result);
         });
 });
 
-router.put("/api/burgers/:id", function (req, res) {
-    const condition = 'id = ' + req.params.id;
-    burger.updateOne(req.body, condition, function (result) {
-        if (result.changedRows == 0) {
-            return res.status(404).end();
-        } else {
-            res.status(200).end();
-        }
+router.put("/api/burgers", function (req, res) {
+    burger.updateOne({
+        devoured: true
+    }, req.body, function (err, result) {
+        if (err) throw err;
+        res.json(result);
     });
 });
 
-// router.delete("/api/burgers/:id", function(req, res) {
-//     const condition = 'id = ' + req.params.id;
-//     burger.deleteOne(condition, function(err, result) {
-//         if (err) throw err;
-//         res.json(result);
-//     });
-// })
+router.delete("/api/burgers", function(req, res) {
+    const id = parseInt(req.body.id);
+    burger.deleteOne(id, function(err, result) {
+        if (err) throw err;
+        res.json(result);
+    });
+})
 // =======================================
 
 // Export to server.js ===================

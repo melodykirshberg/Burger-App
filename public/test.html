@@ -3,49 +3,74 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="/assets/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/assets/css/burger_style.css" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Racing+Sans+One|Gloria+Hallelujah&display=swap"
+        rel="stylesheet">
     <title>Burger App</title>
-
-    <style>
-    
-    </style>
 </head>
 
 <body>
-    <div class="container-fluid">
-
-        <div class="jumbotron vertical-center">
-            <h1>Burger App</h1>
-            <img src='../public/assets/img/burgerFull.png' style="width: 200px">
+    <div class="row text-align-center">
+        <div class="col-12">
+            <h1>Burger App</h1><br>
+            <img src="assets/img/burgerFullsmall.png" alt="Burger pic">
+            <h3>Add a Burger</h3>
             <form class="create-form">
-                <input type="text" id="newburger" name="burger" placeholder="Enter a burger!">
-                <button type="submit">Add Burger</button>
+                <div class="form-group">
+                    <label for="ca">Enter a burger: </label>
+                    <input type="text" name="name" id="bg">
+                </div>
+                <button class="btn-primary">Make Burger</button>
             </form>
         </div>
-        <div class="row">
-            <div class="col-lg-6">
-                <ul>
-                    <p><span class="label">ID:</span> {{id}}</p>
-                    <p><span class="label">Burger:</span> {{burger_name}}</p>
-                    <button class="eatburger" data-id="{{id}}" data-newDevoured="{{devour}}">Eat</button>
-                </ul>
+    </div>
+    
+<div class="row text-align-center">
+        <div class="col-6" id="burgers">
+            <h2>Burgers</h2>
+            <img src="assets/img/burgerTop.png" alt="Burger Top" id="burgertop">
+            {{#each burgers}}
+            {{#unless this.devoured}}
+    
+            <div class="burgerpatty">
+                {{this.burger_name}}
             </div>
-            <div class="col-lg-6">
+            <form action="/{{this.id}}?_method=PUT" method="POST">
+                <input type="hidden" name="devoured" value="true">
+                <button type="submit" class="eatButton" id="devour">Devour It</button>
+            </form>
+            {{/unless}}
+            {{/each}}
+            <img src="assets/img/burgerBottom.png" alt="Burger Top" id="burgerbottom">
+        </div>
+    
+        <div class="col-6" id="burgers">
+            <h2>Eaten</h2>
+            <img src="assets/img/burgerTop.png" alt="Burger Top" id="burgertop">
+            {{#each burgers}}
+            {{#if devoured}}
+            <div class="burgerpatty">
+                {{this.burger_name}}
             </div>
+            <button data-id="{{this.id}}" type="submit" class="makeButton" id="devour">Make It</button>
+            {{/if}}
+            {{/each}}
+            <img src="assets/img/burgerBottom.png" alt="Burger Top" id="burgerbottom">
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="/assets/js/burger.js"></script>
 </body>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-    crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
 
 </html>
