@@ -16,7 +16,7 @@ In your terminal type:
 * For further instructions, visit https://help.github.com
 
 ## Demo
-![alt text](assets/img/burger.gif "Demo")
+![alt text](public/assets/img/burger.gif "Demo")
 
 ## Credits
 [UABootCamp](https://bootcamp.ce.arizona.edu/coding/)
