@@ -23,6 +23,7 @@ Sketchbook - Adobe Photoshop
 
 ## Demo
 ![alt text](public/assets/img/burger.gif "Demo")
+
 Live Link: https://verlitas-burgerapp.herokuapp.com/
 
 ## Credits
