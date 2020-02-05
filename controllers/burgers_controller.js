@@ -16,9 +16,9 @@ router.get("/", function (req, res) {
 
 router.post("/api/burgers", function (req, res) {
     burger.insertOne(req.body, function (err, result) {
-            if (err) throw err;
-            res.json(result);
-        });
+        if (err) throw err;
+        res.json(result);
+    });
 });
 
 router.put("/api/burgers", function (req, res) {
@@ -30,9 +30,9 @@ router.put("/api/burgers", function (req, res) {
     });
 });
 
-router.delete("/api/burgers", function(req, res) {
+router.delete("/api/burgers", function (req, res) {
     const id = parseInt(req.body.id);
-    burger.deleteOne(id, function(err, result) {
+    burger.deleteOne(id, function (err, result) {
         if (err) throw err;
         res.json(result);
     });

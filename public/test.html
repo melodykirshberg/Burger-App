@@ -28,14 +28,14 @@
             </form>
         </div>
     </div>
-    
-<div class="row text-align-center">
+
+    <div class="row text-align-center">
         <div class="col-6" id="burgers">
             <h2>Burgers</h2>
             <img src="assets/img/burgerTop.png" alt="Burger Top" id="burgertop">
             {{#each burgers}}
             {{#unless this.devoured}}
-    
+
             <div class="burgerpatty">
                 {{this.burger_name}}
             </div>
@@ -47,7 +47,7 @@
             {{/each}}
             <img src="assets/img/burgerBottom.png" alt="Burger Top" id="burgerbottom">
         </div>
-    
+
         <div class="col-6" id="burgers">
             <h2>Eaten</h2>
             <img src="assets/img/burgerTop.png" alt="Burger Top" id="burgertop">
