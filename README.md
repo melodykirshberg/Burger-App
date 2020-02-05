@@ -5,6 +5,7 @@ A burger logger with MySQL, Node, Express, Handlebars and a homemade ORM. This w
 
 ## Table of Contents
 * [Installation](#installation)
+* [Technologies-Libraries](#technologies-libraries)
 * [Demo](#demo)
 * [Credits](#credits)
 
@@ -16,7 +17,7 @@ In your terminal type:
 
 ## Technologies-Libraries
 ### Code
-Handlebars - MySQL - Node - Express - ORM - JavaScript - HTML - CSS
+Handlebars - MySQL - Node - Express - ORM - JavaScript - HTML - CSS - Bootstrap
 ### Pictures
 Sketchbook - Adobe Photoshop
 
